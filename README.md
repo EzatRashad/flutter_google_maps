@@ -1,16 +1,13 @@
-# google_maps
+# 🗺️ Google Maps Integration with Flutter
 
-A new Flutter project.
+This repository contains Flutter projects and examples from a course on integrating **Google Maps** into **Flutter** apps. The course covers a wide range of topics, from basic setup to advanced features like custom routes and real-time location tracking.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+- ✅ Basic integration of Google Maps
+- 🛠️ Customizing map styles, markers, and overlays
+- 🧭 Creating and managing routes
+- ✏️ Drawing custom shapes (circles, polygons, polylines)
+- 🔀 Navigating between locations
+- 📍 Real-time user location tracking
+- 🧪 Practical case studies and real-world examples
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
