@@ -23,8 +23,11 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
   @override
   void initState() {
     super.initState();
+    initMapStyle();
     _setupLocation();
   }
+
+  Future<void> initMapStyle() async {}
 
   Future<void> _setupLocation() async {
     var status = await Permission.location.request();
@@ -35,13 +38,14 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
 
         if (isMapCreated) {
           _mapController.animateCamera(
-            CameraUpdate.newCameraPosition(
-              CameraPosition(
-                target: LatLng(position.latitude, position.longitude),
-                zoom: 14.0,
-              ),
-            ),
+            CameraUpdate.newLatLng(
+                LatLng(position.latitude, position.longitude)),
           );
+          String darkMapStyle = await DefaultAssetBundle.of(context)
+              .loadString('assets/dark_map_style/dark_map_style.json');
+          String nightMapStyle = await DefaultAssetBundle.of(context)
+              .loadString('assets/night_map_style/night_map_style.json');
+          _mapController.setMapStyle(nightMapStyle);
         }
 
         setState(() {
@@ -70,6 +74,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
         },
         myLocationEnabled: true,
         myLocationButtonEnabled: true,
+        cameraTargetBounds: CameraTargetBounds.unbounded,
       ),
     );
   }
