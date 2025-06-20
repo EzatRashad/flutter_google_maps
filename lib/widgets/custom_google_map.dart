@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps/models/place_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -19,6 +20,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
   late GoogleMapController _mapController;
   bool isMapCreated = false;
   bool isLocationLoaded = false;
+  Set<Marker> markers = {};
 
   @override
   void initState() {
@@ -26,7 +28,19 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
     initMapStyle();
     _setupLocation();
   }
+  // Future<Uint8List> getImageFromRawData(String image, double width) async {
+  //   var imageData = await rootBundle.load(image);
+  //   var imageCodec = await ui.instantiateImageCodec(
+  //       imageData.buffer.asUint8List(),
+  //       targetWidth: width.round());
 
+  //   var imageFrameInfo = await imageCodec.getNextFrame();
+
+  //   var imageBytData =
+  //       await imageFrameInfo.image.toByteData(format: ui.ImageByteFormat.png);
+
+  //   return imageBytData!.buffer.asUint8List();
+  // }
   Future<void> initMapStyle() async {}
 
   Future<void> _setupLocation() async {
@@ -45,7 +59,24 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
               .loadString('assets/dark_map_style/dark_map_style.json');
           String nightMapStyle = await DefaultAssetBundle.of(context)
               .loadString('assets/night_map_style/night_map_style.json');
-          _mapController.setMapStyle(nightMapStyle);
+          _mapController.setMapStyle(darkMapStyle);
+          final pin = await BitmapDescriptor.asset(
+            const ImageConfiguration(size: Size(30, 30)),
+            'assets/images/pin.png',
+          );
+
+          places
+              .map((e) => {
+                    markers.add(
+                      Marker(
+                        icon: pin,
+                        markerId: MarkerId(e.id.toString()),
+                        position: e.latLng,
+                        infoWindow: InfoWindow(title: e.name),
+                      ),
+                    )
+                  })
+              .toList();
         }
 
         setState(() {
@@ -72,7 +103,9 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
           _mapController = controller;
           isMapCreated = true;
         },
-        myLocationEnabled: true,
+        markers: markers,
+        // myLocationEnabled: true,
+        zoomControlsEnabled: false,
         myLocationButtonEnabled: true,
         cameraTargetBounds: CameraTargetBounds.unbounded,
       ),
