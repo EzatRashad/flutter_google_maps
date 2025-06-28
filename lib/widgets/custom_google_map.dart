@@ -22,6 +22,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
   bool isLocationLoaded = false;
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
+  Set<Polygon> polygons = {};
 
   @override
   void initState() {
@@ -67,7 +68,6 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
                   })
               .toList();
 
-          // Create a polyline for the area
           polylines.add(
             Polyline(
               polylineId: PolylineId('area'),
@@ -78,8 +78,25 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
               startCap: Cap.roundCap,
               endCap: Cap.roundCap,
               jointType: JointType.round,
+              geodesic: true,
+            ),
+          );
 
-              geodesic: true
+          polygons.add(
+            Polygon(
+              polygonId: PolygonId('area_polygon'),
+              points: places.map((e) => e.latLng).toList(),
+              strokeColor: Colors.red,
+              strokeWidth: 3,
+              fillColor: Colors.red.withOpacity(0.2),
+              geodesic: true,
+              holes: [
+                [
+                  LatLng(31.05013702065219, 31.37393775039115),
+                  LatLng(31.050238127850847, 31.374372268234524),
+                  LatLng(31.04995778489966, 31.374066496418816),
+                ]
+              ],
             ),
           );
         }
@@ -110,7 +127,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
         },
         markers: markers,
         polylines: polylines,
-        // myLocationEnabled: true,
+        polygons: polygons,
         zoomControlsEnabled: false,
         myLocationButtonEnabled: true,
         cameraTargetBounds: CameraTargetBounds.unbounded,
