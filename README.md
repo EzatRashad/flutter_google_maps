@@ -8,6 +8,4 @@ This repository contains Flutter projects and examples from a course on integrat
 - 🧭 Creating and managing routes
 - ✏️ Drawing custom shapes (circles, polygons, polylines)
 - 🔀 Navigating between locations
-- 📍 Real-time user location tracking
-- 🧪 Practical case studies and real-world examples
 
