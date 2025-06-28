@@ -21,6 +21,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
   bool isMapCreated = false;
   bool isLocationLoaded = false;
   Set<Marker> markers = {};
+  Set<Polyline> polylines = {};
 
   @override
   void initState() {
@@ -28,19 +29,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
     initMapStyle();
     _setupLocation();
   }
-  // Future<Uint8List> getImageFromRawData(String image, double width) async {
-  //   var imageData = await rootBundle.load(image);
-  //   var imageCodec = await ui.instantiateImageCodec(
-  //       imageData.buffer.asUint8List(),
-  //       targetWidth: width.round());
 
-  //   var imageFrameInfo = await imageCodec.getNextFrame();
-
-  //   var imageBytData =
-  //       await imageFrameInfo.image.toByteData(format: ui.ImageByteFormat.png);
-
-  //   return imageBytData!.buffer.asUint8List();
-  // }
   Future<void> initMapStyle() async {}
 
   Future<void> _setupLocation() async {
@@ -77,6 +66,22 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
                     )
                   })
               .toList();
+
+          // Create a polyline for the area
+          polylines.add(
+            Polyline(
+              polylineId: PolylineId('area'),
+              points: places.map((e) => e.latLng).toList(),
+              color: Colors.blue,
+              width: 5,
+              patterns: [PatternItem.dash(20), PatternItem.gap(10)],
+              startCap: Cap.roundCap,
+              endCap: Cap.roundCap,
+              jointType: JointType.round,
+
+              geodesic: true
+            ),
+          );
         }
 
         setState(() {
@@ -104,6 +109,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
           isMapCreated = true;
         },
         markers: markers,
+        polylines: polylines,
         // myLocationEnabled: true,
         zoomControlsEnabled: false,
         myLocationButtonEnabled: true,
