@@ -23,6 +23,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
   Set<Polygon> polygons = {};
+  Set<Circle> circles = {}; 
 
   @override
   void initState() {
@@ -99,6 +100,20 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
               ],
             ),
           );
+
+          circles.add(
+            Circle(
+              circleId: CircleId('my_circle'),
+              center: LatLng(
+                  position.latitude,
+                  position
+                      .longitude), // center at current location or any desired LatLng
+              radius: 100, // in meters
+              strokeColor: Colors.green,
+              strokeWidth: 2,
+              fillColor: Colors.green.withOpacity(0.3),
+            ),
+          );
         }
 
         setState(() {
@@ -128,6 +143,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
         markers: markers,
         polylines: polylines,
         polygons: polygons,
+        circles: circles, 
         zoomControlsEnabled: false,
         myLocationButtonEnabled: true,
         cameraTargetBounds: CameraTargetBounds.unbounded,
