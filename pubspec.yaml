@@ -37,6 +37,7 @@ dependencies:
   google_maps_flutter:
   permission_handler:
   geolocator: ^11.0.0
+  location:
 dev_dependencies:
   flutter_test:
     sdk: flutter

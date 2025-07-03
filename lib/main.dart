@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps/widgets/custom_google_map.dart';
+import 'package:google_maps/widgets/live_tracking.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
        
-      home: const CustomGoogleMap(),
+      home: const LiveTracking(),
     );
   }
 }
